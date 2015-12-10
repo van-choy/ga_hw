@@ -23,7 +23,6 @@ csv_f = csv.reader(f, delimiter="\t")
 file_nested_list = []
 
 #Then, bring in the data into the list.
-#Why do I have to append 0:5 when there are only 5 columns??? Not 0:4?
 
 for row in csv_f:     
     file_nested_list.append(row[0:5])
@@ -42,7 +41,6 @@ data = file_nested_list[1:]
 # ##Part 3: PART 3: Calculate the average price of an order.##
 # I was trying to append a new column to calculate total price per row to account for quantity*price, I couldn't figure it out. Then I realized the item_price already took into account quantity
 
-# I wasn't sure whether item_price is 4 or 5, so I used -1 (I tried 5, and it didnt work, so I guess it is 4)
 total_price = [row [-1] for row in data]
 #print total_price[0:10]
 
@@ -53,13 +51,12 @@ total_price = [row [-1] for row in data]
 
 # I tried to change string to float using total_price = [float[row[-1]] for row in data]
 # I cheated here - I dont understand why we have to use [1:]? 
-# What is the difference between [], (), {}??
 
 total_price = [float(row[-1][1:]) for row in data]
 
 #print total_price[0:10]
 
-# Calculate avergae - is there an average function?
+# Calculate average - is there an average function?
 # Why can't I do this, since I have already converted my strings to float?
 #total_price_sum = sum("total_price_average")
 
@@ -70,8 +67,8 @@ total_price_sum = sum(float(row[-1][1:]) for row in data)
 #print len(row[0]) = 4. Why is this showing 4?
 #print len(data) = 4622. Are there 4622 rows in the data?
 
-#sorted (data)
-sorted (data, key=lambda row: row[0]) #why is it that whatever column I sort returns the same results?
+#sorted [data[0][0])
+#sorted (data, key=lambda row: row[0]) #why is it that whatever column I sort returns the same results?
 #print data [-1]
 #looks like there are 1834 orders? But I am not sure if every number from 1-1834 are used in the list.
 
@@ -128,10 +125,10 @@ for row in data:
 
 print len(burrito_orders)    #1172 Burrito orders
 
-number_of_toppings = 0 #I dont understand this
+number_of_toppings = 0 
 for row in data:
     if 'Burrito' in row[2]:
-        number_of_toppings += (row[3][1:-1].count(',') + 1) #6323. I dont understand this
+        number_of_toppings += (row[3].count(',') + 1) #6323. 
 
 print number_of_toppings      
 
@@ -166,13 +163,13 @@ print len('unique_chips') #why is it still showing 12 instead of 8?
 chips = ['Chips and Mild Fresh Tomato Salsa', 'Chips and Guacamole', 'Chips and Fresh Tomato Salsa', 'Chips and Tomatillo Red Chili Salsa', 'Side of Chips', 'Chips and Roasted Chili Corn Salsa', 'Chips', 'Chips and Tomatillo Green Chili Salsa']   
 
 
+
 #Couldn't figure it out, so I copied this over from answers to try
 from collections import defaultdict
 dchips = defaultdict(int)
 for row in data:
     if 'Chips' in row[2]:
         dchips[row[2]] += int(row[1])
-
 
 
 f.close() 
